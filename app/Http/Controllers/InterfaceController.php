@@ -14,9 +14,6 @@ class InterfaceController extends Controller
     public function checkUrl(Request $request)
     {
         $session = Session::where('id', $request->session()->getId())->first();
-        $data = [
-            'session' => $session,
-        ];
 
         if (!$session) {
             return response()->json(
@@ -41,6 +38,22 @@ class InterfaceController extends Controller
                 );
             }
         }
+
+
+        $room = Room::where('sessions_id', $request->session()->getId())->first();
+        if (!$room) {
+            $message = null;
+        } else {
+            $message = Messages::where('chatroom_id', $room->id)->get();
+        }
+
+
+        $data = [
+            'session' => $session,
+            'room' => $room ,
+            'message' => $message,
+            'request_sessions' => $request->session()->getId(),
+        ];
 
         return view('interface.v_home.index', $data);
     }

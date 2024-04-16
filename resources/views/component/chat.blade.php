@@ -32,7 +32,7 @@
     <div id="messages"
         class="overflow-y-auto max-h-96 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 p-3 scrolling-touch">
 
-        @if ($message->isEmpty())
+        @if (!$message || $message->isEmpty())
             <div class="chat chat-start">
                 <div class="chat-image avatar">
                     <div class="w-10 rounded-full">
